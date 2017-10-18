@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view, typically from a nib.
+        searchBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,7 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if searchText.isEmpty {
             taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
         } else {
-            taskArray = try! Realm().objects(Task.self).filter("name CONTAINS[c] %@", searchText).sorted(byKeyPath: "date", ascending: false)
+            taskArray = try! Realm().objects(Task.self).filter("category CONTAINS[c] %@", searchText).sorted(byKeyPath: "date", ascending: false)
         }
         
         tableView.reloadData()
